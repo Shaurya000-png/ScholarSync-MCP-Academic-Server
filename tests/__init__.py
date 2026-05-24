@@ -1,0 +1,1 @@
+"""ScholarSync test suite."""
