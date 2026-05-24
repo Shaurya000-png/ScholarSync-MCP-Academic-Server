@@ -1,0 +1,29 @@
+services:
+  scholarsync:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      MONGODB_URI: ${MONGODB_URI:-mongodb://mongodb:27017}
+      MONGODB_DATABASE: ${MONGODB_DATABASE:-academic_assistant}
+    volumes:
+      - ./pdfs:/app/pdfs
+      - ./notes:/app/notes
+      - ./logs:/app/logs
+    depends_on:
+      - mongodb
+    stdin_open: true
+    tty: true
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
