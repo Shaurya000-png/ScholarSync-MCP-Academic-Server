@@ -1,0 +1,123 @@
+{
+  "manifest_version": "0.3",
+  "name": "scholarsync-mcp-academic-server",
+  "display_name": "ScholarSync MCP Academic Server",
+  "version": "0.1.0",
+  "description": "A local academic MCP server for ScholarSync notes, assignments, PDFs, tasks, timetable, and MongoDB-backed student data.",
+  "long_description": "ScholarSync MCP Academic Server is a local MCP server that lets Claude interact with academic resources through structured tools. It can search notes, ingest notes and PDFs into semantic chunks, retrieve academic context with vector-style search, summarize PDFs, manage assignments, track reminders, inspect schedules, and query MongoDB collections.",
+  "author": {
+    "name": "Shaurya"
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "server.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "server.py"
+      ],
+      "env": {
+        "MONGODB_URI": "mongodb://localhost:27017",
+        "MONGODB_DATABASE": "academic_assistant"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "search_notes",
+      "description": "Search academic notes by topic, keyword, subject, or concept from MongoDB and local text notes."
+    },
+    {
+      "name": "retrieve_academic_context",
+      "description": "Retrieve notes and study context before answering academic questions using semantic RAG with keyword fallback."
+    },
+    {
+      "name": "ingest_academic_knowledge_base",
+      "description": "Chunk notes and PDFs, embed them, and store semantic retrieval documents in MongoDB."
+    },
+    {
+      "name": "semantic_search_academic_knowledge",
+      "description": "Run semantic vector-style search across ingested academic notes and PDF chunks."
+    },
+    {
+      "name": "summarize_pdf",
+      "description": "Extract study PDF text from the pdfs folder and return content Claude can summarize into key points."
+    },
+    {
+      "name": "search_assignments",
+      "description": "Search assignments by subject, due date, priority, status, or text query."
+    },
+    {
+      "name": "add_assignment",
+      "description": "Add a new academic assignment with subject, title, due date, priority, and completion status."
+    },
+    {
+      "name": "update_assignment_status",
+      "description": "Update an assignment status, such as pending, in progress, completed, or overdue."
+    },
+    {
+      "name": "get_schedule",
+      "description": "Get classes from the timetable for today, tomorrow, a weekday, or a specific subject."
+    },
+    {
+      "name": "get_subject_info",
+      "description": "Get subject/course information such as faculty, credits, syllabus, or timetable details."
+    },
+    {
+      "name": "add_task",
+      "description": "Add an academic task or reminder with optional due date, subject, priority, and notes."
+    },
+    {
+      "name": "view_tasks",
+      "description": "View academic tasks and reminders by status, date, subject, or text query."
+    },
+    {
+      "name": "mark_task_complete",
+      "description": "Mark an academic task or reminder as completed."
+    },
+    {
+      "name": "query_student_database",
+      "description": "Safely query MongoDB academic collections when a direct database lookup is needed."
+    },
+    {
+      "name": "health_check",
+      "description": "Check MCP server and MongoDB connectivity for debugging."
+    },
+    {
+      "name": "generate_exam_questions",
+      "description": "Retrieve academic context for a subject/topic and instruct Claude to generate practice exam questions (MCQ, short answer, or true/false)."
+    },
+    {
+      "name": "create_study_plan",
+      "description": "Gather upcoming assignments, tasks, and timetable data so Claude can create a personalised study plan for the next N days."
+    },
+    {
+      "name": "find_knowledge_gaps",
+      "description": "Identify subjects where the student has assignments but few or no ingested notes, flagging knowledge gaps that need more study material."
+    },
+    {
+      "name": "get_urgent_items",
+      "description": "Find assignments and tasks due within the next N hours so Claude can proactively warn the student about upcoming deadlines."
+    },
+    {
+      "name": "translate_and_search",
+      "description": "Detect the language of a query, translate it to English, and search academic content. Use this when the student asks in Hindi, Marathi, or any non-English language."
+    }
+  ],
+  "keywords": [
+    "academic",
+    "student",
+    "mongodb",
+    "notes",
+    "assignments",
+    "pdf"
+  ],
+  "compatibility": {
+    "platforms": [
+      "win32"
+    ],
+    "runtimes": {
+      "python": ">=3.11"
+    }
+  }
+}
